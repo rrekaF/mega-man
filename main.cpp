@@ -1,5 +1,4 @@
 #include <iostream>
-#include "windows.h"
 #include "Level.h"
 #include <ncursesw/ncurses.h>
 #include "player.h"
