@@ -64,8 +64,8 @@ public:
 		if(y_momentum > -1){
 			y_momentum -= 0.2;
 		}
-//		y_momentum *= room->check_collision(position.x, position.y);
-		room->check_collision(position.x, position.y);
+		y_momentum *= !room->check_collision(position.x, position.y);
+//		room->check_collision(position.x, position.y);
 //		if(y_momentum < -1){
 //			y_momentum = -1;
 //		}

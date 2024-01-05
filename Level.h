@@ -27,17 +27,9 @@ public:
 			}
 		}
 	}
-	void check_collision(int x, int y){
-		//room[1][1];
-		//return;
-		if(x < W && y < H && x > 0 && y > 0){
-//			if(room[y+1][x] == '#')
-			mvaddstr(15, 15, std::to_string(x).c_str());
-			mvaddstr(16, 15, std::to_string(y).c_str());
-			mvaddstr(17, 15, room[1].c_str());
-
-		} else {
-			mvaddch(15, 15, 'n');
-		}
+	bool check_collision(int x, int y){
+		// TODO left/right
+		return x > W || y > H || x < 0 || y < 0 ||
+			room[y+1][x] == '#'; 
 	}
 };
