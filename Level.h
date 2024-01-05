@@ -23,7 +23,7 @@ public:
 	void print_level(){
 		for(int i = 0; i < H; i++){
 			for(int j = 0; j < W; j++){
-				mvaddch(i+1, j+1 , room[i][j]);
+				mvaddch(i, j , room[i][j]);
 			}
 		}
 	}
