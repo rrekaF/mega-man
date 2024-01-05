@@ -24,6 +24,7 @@ TODO:
 -add levels
 */
 int menu(){
+	mvaddstr(15, 7 , "PRESS E TO START");
 	int input = getch();
 		if (input != ERR)
 		{
@@ -31,7 +32,9 @@ int menu(){
 			{
 			case 'e':
 				return true;
-				break;	
+				break;
+			case 'q':
+				exit(1);
 			}
 		}
 	return false;
