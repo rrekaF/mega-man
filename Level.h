@@ -8,8 +8,9 @@
 
 class Level
 {
+private:
+	std::string room[H];
 public:
-	std::string room[H]{};
 	Level(){
 		std::ifstream room_file;
 		room_file.open("room.txt");
