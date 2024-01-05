@@ -42,25 +42,26 @@ int main(void)
 	WINDOW *mainwin = initscr();
 	box(mainwin, '|', '-'); 
 	preparation();
-	Level room;
+	Level* room = new Level();
 	while(1){
 		if(menu()){
 			break;
 		}
 	}
-	Player player(15, 15, 1, 100, '@', 1, 2, &room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
+	Player* player = new Player(15, 15, 1, 100, '@', 1, 2, room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
 	
 	while (true)																 // Game loop
 	{
 //		box(mainwin, '|', '-'); 
-		room.print_level();
-		player.print_character();
-		if (player.movement_handler() == 1)
+		room->print_level();
+		player->print_character();
+		if (player->movement_handler() == 1)
 			break;
 		refresh();
 		clear();
 	}
-				 
+	delete room;
+	delete player;
 	cleanup(mainwin);
 	return EXIT_SUCCESS;
 	
