@@ -61,7 +61,6 @@ int main(void)
 		if (player->movement_handler() == 1)
 			break;
 		refresh();
-		clear();
 	}
 	delete room;
 	delete player;
