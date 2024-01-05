@@ -33,7 +33,7 @@ public:
 		dimensions_x = dim_x;
 		dimensions_y = dim_y;
 		y_momentum = y_mom;
-		Level* room = rom;
+		room = rom;
 		fill_space(dimensions_x, dimensions_y);
 	}
 
