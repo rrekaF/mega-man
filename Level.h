@@ -15,9 +15,8 @@ public:
 		room_file.open("room.txt");
 		if(room_file.is_open()){
 			int i = 0;
-			while(room_file){
-				room_file >> room[i++];
-			}
+			while(getline(room_file, room[i]) && i < H)
+				i++;
 		}
 		room_file.close();
 	}
