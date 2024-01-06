@@ -1,1 +1,1 @@
-g++ main.cpp -o "mega-man" -lncurses  && ./mega-man
+g++ main.cpp -o "mega-man.appimage" -lncurses  && ./mega-man.appimage

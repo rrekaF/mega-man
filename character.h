@@ -33,7 +33,7 @@ public:
 		dimensions_x = dim_x;
 		dimensions_y = dim_y;
 		y_momentum = y_mom;
-		Level* room = rom;
+		room = rom;
 		fill_space(dimensions_x, dimensions_y);
 	}
 
@@ -64,8 +64,8 @@ public:
 		if(y_momentum > -1){
 			y_momentum -= 0.2;
 		}
-//		y_momentum *= room->check_collision(position.x, position.y);
-		room->check_collision(position.x, position.y);
+		y_momentum *= !room->check_collision(position.x, position.y);
+//		room->check_collision(position.x, position.y);
 //		if(y_momentum < -1){
 //			y_momentum = -1;
 //		}

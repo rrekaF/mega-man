@@ -1,5 +1,4 @@
 #include <iostream>
-#include "windows.h"
 #include "Level.h"
 #include <ncursesw/ncurses.h>
 #include "player.h"
@@ -25,6 +24,7 @@ TODO:
 -add levels
 */
 int menu(){
+	mvaddstr(15, 7 , "PRESS E TO START");
 	int input = getch();
 		if (input != ERR)
 		{
@@ -32,7 +32,9 @@ int menu(){
 			{
 			case 'e':
 				return true;
-				break;	
+				break;
+			case 'q':
+				exit(1);
 			}
 		}
 	return false;
@@ -43,25 +45,25 @@ int main(void)
 	WINDOW *mainwin = initscr();
 	box(mainwin, '|', '-'); 
 	preparation();
-	Level room;
+	Level* room = new Level();
 	while(1){
 		if(menu()){
 			break;
 		}
 	}
-	Player player(15, 15, 1, 100, '@', 1, 2, &room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
+	Player* player = new Player(15, 15, 1, 100, '@', 1, 2, room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
 	
 	while (true)																 // Game loop
 	{
 //		box(mainwin, '|', '-'); 
-		room.print_level();
-		player.print_character();
-		if (player.movement_handler() == 1)
+		room->print_level();
+		player->print_character();
+		if (player->movement_handler() == 1)
 			break;
 		refresh();
-		clear();
 	}
-				 
+	delete room;
+	delete player;
 	cleanup(mainwin);
 	return EXIT_SUCCESS;
 	
