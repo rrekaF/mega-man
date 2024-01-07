@@ -55,11 +55,11 @@ int main(void)
 	
 	while (true)																 // Game loop
 	{
-//		box(mainwin, '|', '-'); 
 		room->print_level();
 		player->print_character();
-		if (player->movement_handler() == 1)
+		if (player->movement_handler() == 1){
 			break;
+		}
 		refresh();
 	}
 	delete room;

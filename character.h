@@ -69,7 +69,7 @@ public:
 			position.y -= int(ceil(y_momentum));
 		}
 		if(y_momentum > -1){
-			y_momentum -= 0.2;
+			y_momentum -= 0.1;
 		}
 		y_momentum *= !room->check_collision(position.x, position.y + 1);
 

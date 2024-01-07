@@ -15,16 +15,20 @@ public:
 			switch (input)
 			{
 			case KEY_UP:
-				y_momentum = 0.5;
+				y_momentum = 0.3;
 				break;
 			case KEY_DOWN:
-				// move(position.x, position.y += speed);
+				// Unused as of now
 				break;
 			case KEY_LEFT:
 				move(position.x - 1, position.y);
 				break;
 			case KEY_RIGHT:
 				move(position.x + 1, position.y);
+				break;
+			case 'a':
+				break;
+			case 'd':
 				break;
 			case 'q':
 				return 1;
