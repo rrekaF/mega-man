@@ -25,6 +25,7 @@ TODO:
 -add levels
 -fix permissions
 -speed up gravity
+-add multi-key support
 */
 int menu(){
 	mvaddstr(15, 7 , "PRESS E TO START");
