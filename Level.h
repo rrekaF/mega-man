@@ -16,8 +16,9 @@ public:
 		room_file.open("room.txt");
 		if(room_file.is_open()){
 			int i = 0;
-			while(getline(room_file, room[i]) && i < H)
+			while(getline(room_file, room[i]) && i < H){
 				i++;
+			}
 		}
 		room_file.close();
 	}
@@ -31,6 +32,6 @@ public:
 	bool check_collision(int x, int y){
 		// TODO left/right
 		return x > W || y > H || x < 0 || y < 0 ||
-			room[y+1][x] == '#'; 
+			room[y][x] != '.'; 
 	}
 };

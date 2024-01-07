@@ -54,9 +54,16 @@ private:
 		occupied_space = new_occupied_space;
 	}
 public:
+	void move(int new_x, int new_y){
+		if(!room->check_collision(new_x, new_y)){
+			position.y = new_y;
+			position.x = new_x;
+		}
+	}
 	void gravity(){
 	
 		if(y_momentum > 0){
+			y_momentum *= !room->check_collision(position.x, position.y - dimensions_y);
 			position.y -= int(ceil(y_momentum));
 		} else {
 			position.y -= int(ceil(y_momentum));
@@ -64,12 +71,8 @@ public:
 		if(y_momentum > -1){
 			y_momentum -= 0.2;
 		}
-		y_momentum *= !room->check_collision(position.x, position.y);
-//		room->check_collision(position.x, position.y);
-//		if(y_momentum < -1){
-//			y_momentum = -1;
-//		}
-		
+		y_momentum *= !room->check_collision(position.x, position.y + 1);
+
 	}
 	void print_character()
 	{
@@ -80,9 +83,11 @@ public:
 			mvaddch(i.y, i.x, representation);
 	}
 	void print_momentum(){
+		mvaddstr(4,5, "mom");
 		mvaddstr(5, 5, std::to_string(y_momentum).c_str());
 	}
 	void print_position(){
+		mvaddstr(9, 10, "pos");
 		mvaddstr(10, 10, std::to_string(position.x).c_str());
 		mvaddstr(11, 10, std::to_string(position.y).c_str());
 	}
