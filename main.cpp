@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Level.h"
+#include "level.h"
 #include <ncursesw/ncurses.h>
 #include "player.h"
 

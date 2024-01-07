@@ -2,7 +2,7 @@
 #include <ncursesw/ncurses.h>
 #include <cmath>
 #include <string>
-#include "Level.h"
+#include "level.h"
 struct coords
 {
 	int x;
