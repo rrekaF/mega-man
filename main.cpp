@@ -56,7 +56,7 @@ int main(void)
 	while (true)																 // Game loop
 	{
 		room->print_level();
-		player->print_character();
+		player->print_entity();
 		if (player->movement_handler() == 1){
 			break;
 		}
