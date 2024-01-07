@@ -24,7 +24,19 @@ public:
         room = rom;
         fill_space(dimensions_x, dimensions_y);
     }
+    void print_entity()
+	{
 
+		fill_space(dimensions_x, dimensions_y);
+		for (auto i : occupied_space)
+			mvaddch(i.y, i.x, representation);
+	}
+	void move(int new_x, int new_y){
+		if(!room->check_collision(new_x, new_y)){
+			position.y = new_y;
+			position.x = new_x;
+		}
+	}
 private:
 	void fill_space(int dimensions_x, int dimensions_y)
 	{
@@ -40,20 +52,5 @@ private:
 			}
 		}
 		occupied_space = new_occupied_space;
-	}
-
-public:
-    void print_entity()
-	{
-
-		fill_space(dimensions_x, dimensions_y);
-		for (auto i : occupied_space)
-			mvaddch(i.y, i.x, representation);
-	}
-	void move(int new_x, int new_y){
-		if(!room->check_collision(new_x, new_y)){
-			position.y = new_y;
-			position.x = new_x;
-		}
 	}
 };

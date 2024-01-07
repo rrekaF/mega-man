@@ -19,9 +19,12 @@ void cleanup(WINDOW *mainwin)
 }
 /*
 TODO:
--add enemies
+-complete projectile class
 -add shooting
+-add enemies
 -add levels
+-fix permissions
+-speed up gravity
 */
 int menu(){
 	mvaddstr(15, 7 , "PRESS E TO START");

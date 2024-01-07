@@ -40,6 +40,18 @@ public:
 		}
 		return 0;
 	}
+	void gravity(){
+		if(y_momentum > 0){
+			y_momentum *= !room->check_collision(position.x, position.y - dimensions_y);
+			position.y -= int(ceil(y_momentum));
+		} else {
+			position.y -= int(ceil(y_momentum));
+		}
+		if(y_momentum > -1){
+			y_momentum -= 0.1;
+		}
+		y_momentum *= !room->check_collision(position.x, position.y + 1);
+	}
 	void print_momentum(){
 		mvaddstr(4,5, "mom");
 		mvaddstr(5, 5, std::to_string(y_momentum).c_str());
