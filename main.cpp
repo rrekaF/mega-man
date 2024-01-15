@@ -1,5 +1,4 @@
 #include <iostream>
-#include "level.h"
 #include <ncursesw/ncurses.h>
 #include "player.h"
 
@@ -19,16 +18,12 @@ void cleanup(WINDOW *mainwin)
 }
 /*
 TODO:
--complete projectile class
--add shooting
--add enemies
--add levels
--fix permissions
--speed up gravity
 -add multi-key support
 */
 int menu(){
+	clear();
 	mvaddstr(15, 7 , "PRESS E TO START");
+	refresh();
 	int input = getch();
 		if (input != ERR)
 		{
@@ -50,21 +45,23 @@ int main(void)
 	box(mainwin, '|', '-'); 
 	preparation();
 	Level* room = new Level();
+	START:
 	while(1){
 		if(menu()){
 			break;
 		}
 	}
 
-	Player* player = new Player(15, 15, 1, 100, '@', 1, 2, room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
+	Player* player = new Player(15, 15, 1, 5, '@', 1, 2, room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
 	
 	while (true)																 // Game loop
 	{
-		room->print_level();
-		player->tick();
-		// if (player->movement_handler() == 1){
-		// 	break;
-		// }
+		player->room->print_level();
+		if(player->tick()){
+			//  _~*The forbidden keyword*~_
+			goto START;
+		}
+		
 		refresh();
 	}
 	delete room;

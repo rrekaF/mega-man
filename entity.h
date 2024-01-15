@@ -10,6 +10,7 @@ class Entity{
 public:
     coords position;
     std::vector<coords> occupied_space;
+	std::vector<coords> last_occupied_space;
     char representation;
     int dimensions_x, dimensions_y;
 	float speed;
@@ -48,6 +49,7 @@ public:
 private:
 	void fill_space(int dimensions_x, int dimensions_y)
 	{
+		last_occupied_space = occupied_space;
 		std::vector<coords> new_occupied_space;
 		coords piece_position;
 		for (int i = 0; i < dimensions_y; i++)

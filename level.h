@@ -30,8 +30,7 @@ public:
 		}
 	}
 	bool check_collision(int x, int y){
-		// TODO left/right
 		return x > W || y > H || x < 0 || y < 0 ||
-			room[y][x] != '.'; 
+			room[y][x] != ' '; 
 	}
 };
