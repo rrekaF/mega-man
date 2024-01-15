@@ -9,7 +9,6 @@ class Character : public Entity
 public:
 	short int health;
 	short int max_health;
-	// std::vector<coords> last_occupied_space;
 	float y_momentum;
 
 	Character(int pos_x, int pos_y, float spd, int hp, char repr, int dim_x, int dim_y, Level* rom = nullptr,  float y_mom=-1) : Entity(pos_x, pos_y, spd, repr, dim_x, dim_y, rom){
@@ -36,7 +35,7 @@ public:
 			position.y -= int(round(y_momentum));
 		}
 		if(y_momentum > -1){
-			y_momentum -= 0.05;
+			y_momentum -= 0.1;
 		}
 		y_momentum *= !room->check_collision(position.x, position.y + 1);
 

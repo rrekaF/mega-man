@@ -1,21 +1,30 @@
-// #include "character.h"
 #include "projectile.h"
 #include "enemy.h"
-// #include <iostream>
+
+#define ENEMY_TIMER 30
+#define N_ENEMY_SPAWNS 4
+#define SHOOT_COOLDOWN 20
+#define SHIELD_DURATION 30
+#define GRAVITY 0.5
 
 class Player : public Character
 {
 	using Character::Character;
 	std::vector<Projectile*> projectiles;
 	std::vector<Enemy*> enemies;
-	int shield = 0;
+	int shield = SHIELD_DURATION;
+	int shoot_cooldown = SHOOT_COOLDOWN;
+	int enemy_timer = ENEMY_TIMER;
+	coords possible_enemy_spawns[N_ENEMY_SPAWNS] = {
+		{5, 5},
+		{40, 6},
+		{70, 20},
+		{60, 13}
+	};
 
 public:
 	int movement_handler()
 	{
-		print_momentum();
-		print_position();
-		gravity();
 		int input = getch();
 		if (input != ERR)
 		{
@@ -23,7 +32,7 @@ public:
 			{
 			case KEY_UP:
 				if(room->check_collision(position.x, position.y + 1)){
-					y_momentum = 0.5;
+					y_momentum = GRAVITY;
 				}
 				break;
 			case KEY_DOWN:
@@ -36,10 +45,10 @@ public:
 				move(position.x + 1, position.y);
 				break;
 			case 'a':
-				projectiles.push_back(new Projectile(position.x, position.y - 1, 1, 100, '-', 1, 1, 'a', room));
+				shoot(input);
 				break;
 			case 'd':
-				projectiles.push_back(new Projectile(position.x, position.y - 1, 1, 100, '-', 1, 1, 'd', room));
+				shoot(input);
 				break;
 			case 'q':
 				delete_enemy(0);
@@ -50,9 +59,26 @@ public:
 		}
 		return 0;
 	}
+	void shoot(char dir){
+		if(!shoot_cooldown){
+			projectiles.push_back(new Projectile(position.x, position.y - 1, 1, 100, '-', 1, 1, dir, room));
+			shoot_cooldown = SHOOT_COOLDOWN;
+		}
+	}
 	int tick() override {
+		if(enemy_timer){
+			enemy_timer--;
+		}else{
+			srand(time(0));
+			int spawn = rand() % N_ENEMY_SPAWNS;
+			enemies.push_back(new Enemy(possible_enemy_spawns[spawn].x, possible_enemy_spawns[spawn].y, 1, 1, '$', 1, 2, room));
+			enemy_timer = ENEMY_TIMER;
+		}
+		if(shoot_cooldown){
+			shoot_cooldown--;
+		}
 		gravity();
-		if(shield > 0){
+		if(shield){
 			shield--;
 		}
 		mvaddstr(position.y - 3,  position.x, std::to_string(shield).c_str());
@@ -64,6 +90,7 @@ public:
 		print_hp();
 		projectiles_handler();
 		enemies_handler();
+
 		return movement_handler();
 	}
 	void check_enemy_collision(){
@@ -74,7 +101,7 @@ public:
 						if(!shield){
 							health -= 1;
 							occupied_space = last_occupied_space;
-							shield = 30;
+							shield = SHIELD_DURATION;
 						}
 					}
 				}
@@ -124,7 +151,9 @@ public:
 		}
 		for(auto i : enemies){
 			i->tick();
+			i->move_towards_player(position.x, position.y);
 		}
+
 	}
 
 

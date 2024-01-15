@@ -53,9 +53,10 @@ int main(void)
 	}
 
 	Player* player = new Player(15, 15, 1, 5, '@', 1, 2, room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
-	
+
 	while (true)																 // Game loop
 	{
+
 		player->room->print_level();
 		if(player->tick()){
 			//  _~*The forbidden keyword*~_
