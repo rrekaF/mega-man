@@ -16,15 +16,19 @@ public:
 		y_momentum = y_mom;
 	}
 
-	void shoot(char direction){
-		switch (direction){
-		case 'a':
-			/* code */
-			break;
+	// void shoot(char direction){
+	// 	switch (direction){
+	// 	case 'a':
+	// 		/* code */
+	// 		break;
 		
-		default:
-			break;
-		}
+	// 	default:
+	// 		break;
+	// 	}
+	// }
+	void print_momentum(){
+		mvaddstr(4,5, "mom");
+		mvaddstr(5, 5, std::to_string(y_momentum).c_str());
 	}
 	void gravity(){
 	

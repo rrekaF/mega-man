@@ -1,5 +1,6 @@
 #include <vector>
 #include "level.h"
+#pragma once
 struct coords
 {
 	int x;
@@ -24,6 +25,7 @@ public:
         room = rom;
         fill_space(dimensions_x, dimensions_y);
     }
+	int virtual tick() = 0;
     void print_entity()
 	{
 
@@ -36,6 +38,12 @@ public:
 			position.y = new_y;
 			position.x = new_x;
 		}
+	}
+
+	void print_position(){
+		mvaddstr(9, 10, "pos");
+		mvaddstr(10, 10, std::to_string(position.x).c_str());
+		mvaddstr(11, 10, std::to_string(position.y).c_str());
 	}
 private:
 	void fill_space(int dimensions_x, int dimensions_y)

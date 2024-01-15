@@ -1,9 +1,11 @@
 #include "character.h"
+#include "projectile.h"
 #include <iostream>
 
 class Player : public Character
 {
 	using Character::Character;
+	std::vector<Projectile*> projectiles;
 
 public:
 	int movement_handler()
@@ -29,8 +31,10 @@ public:
 				move(position.x + 1, position.y);
 				break;
 			case 'a':
+				projectiles.push_back(new Projectile(position.x, position.y - 1, 1, 100, '-', 1, 1, 'a', room));
 				break;
 			case 'd':
+				projectiles.push_back(new Projectile(position.x, position.y - 1, 1, 100, '-', 1, 1, 'd', room));
 				break;
 			case 'q':
 				return 1;
@@ -40,26 +44,25 @@ public:
 		}
 		return 0;
 	}
-	void gravity(){
-		if(y_momentum > 0){
-			y_momentum *= !room->check_collision(position.x, position.y - dimensions_y);
-			position.y -= int(ceil(y_momentum));
-		} else {
-			position.y -= int(ceil(y_momentum));
+	int tick() override {
+		gravity();
+		print_entity();
+		print_position();
+		for(int i = 0; i < projectiles.size(); i++){
+			if(projectiles[i]->inbounds() == 0){
+				Projectile* tmp = projectiles[i];
+				projectiles.erase(projectiles.begin() + i);
+				delete tmp;
+			}
 		}
-		if(y_momentum > -1){
-			y_momentum -= 0.1;
+		print_projectiles();
+		return movement_handler();
+	}
+	void print_projectiles(){
+		for(auto i : projectiles){
+			i->tick();
 		}
-		y_momentum *= !room->check_collision(position.x, position.y + 1);
 	}
-	void print_momentum(){
-		mvaddstr(4,5, "mom");
-		mvaddstr(5, 5, std::to_string(y_momentum).c_str());
-	}
-	void print_position(){
-		mvaddstr(9, 10, "pos");
-		mvaddstr(10, 10, std::to_string(position.x).c_str());
-		mvaddstr(11, 10, std::to_string(position.y).c_str());
-	}
+
 
 };

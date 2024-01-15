@@ -55,15 +55,16 @@ int main(void)
 			break;
 		}
 	}
+
 	Player* player = new Player(15, 15, 1, 100, '@', 1, 2, room); // pos_x, pos_y, speed, health, repr, dim_x, dim_y
 	
 	while (true)																 // Game loop
 	{
 		room->print_level();
-		player->print_entity();
-		if (player->movement_handler() == 1){
-			break;
-		}
+		player->tick();
+		// if (player->movement_handler() == 1){
+		// 	break;
+		// }
 		refresh();
 	}
 	delete room;
