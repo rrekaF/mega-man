@@ -18,7 +18,7 @@ void cleanup(WINDOW *mainwin)
 }
 /*
 TODO:
--add multi-key support
+-Seperate playes into other classes cause rn its wild
 */
 int menu(){
 	clear();
